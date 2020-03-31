@@ -10,11 +10,14 @@ export class MongoDbProvider {
   constructor(url: string) {
     this.mongoClient = new MongoClient(url, { useUnifiedTopology: true });
     let logCount = 0;
-    Logger.setCurrentLogger((msg, state) => {
-      console.log(`MONGO DB REQUEST ${++logCount}: ${msg}`);
-    });
-    Logger.setLevel('debug');
-    Logger.filter('class', ['Cursor']);
+
+    if (process.env.NODE_ENV === 'development') {
+      Logger.setCurrentLogger((msg, state) => {
+        console.log(`MONGO DB REQUEST ${++logCount}: ${msg}`);
+      });
+      Logger.setLevel('debug');
+      Logger.filter('class', ['Cursor']);
+    }
   }
 
   get usersCollection(): Collection {
