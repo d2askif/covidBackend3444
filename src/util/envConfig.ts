@@ -14,8 +14,6 @@ switch (process.env.NODE_ENV) {
     path = `${__dirname}/../../.env.dev`;
 }
 
-console.log({ path });
-
 dotenv.config({ path: path });
 
 export const MONGO_URI = process.env.MONGO_URI;
