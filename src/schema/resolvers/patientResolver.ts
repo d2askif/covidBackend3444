@@ -23,7 +23,6 @@ export const patientResolver = {
   Query: {
     getPatients: async (_: any, __: any, { mongoDb }: any) => {
       const patients = await mongoDb.patientCollection.find({}).toArray();
-      console.log(patients);
 
       return patients;
     }
@@ -36,10 +35,7 @@ export const patientResolver = {
         mongoDb: { patientCollection }
       }: { mongoDb: { patientCollection: Collection } }
     ) => {
-      console.log(input);
       const response = await patientCollection.insert(input);
-
-      console.log('inserted id', response.insertedIds[0]);
 
       return true;
     }

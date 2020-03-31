@@ -54,7 +54,9 @@ export class MongoDbProvider {
    */
   async connectAsync(databaseName: string): Promise<void> {
     await this.mongoClient.connect();
-    this.mongoClient.isConnected && console.log('connected');
+    if (process.env.NODE_ENV === 'development') {
+      this.mongoClient.isConnected && console.log('connected');
+    }
 
     this.database = this.mongoClient.db(databaseName);
   }

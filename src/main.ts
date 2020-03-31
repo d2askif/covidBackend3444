@@ -44,9 +44,11 @@ const server = async () => {
     playground: environment.apollo.playground
   });
 
-  server
-    .listen(environment.port)
-    .then(({ url }) => console.log(`Server ready    at ${url}. `));
+  server.listen(environment.port).then(({ url }) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Server ready    at ${url}. `);
+    }
+  });
 };
 
 server();
