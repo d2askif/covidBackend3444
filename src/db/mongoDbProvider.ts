@@ -1,4 +1,7 @@
 const MONGO_URL = process.env.MONGO_URL || '';
+import Book from './Models/Book';
+import mongoose from 'mongoose';
+
 //'mongodb+srv://daniel:ict4rd2012@cluster0-j7d3x.mongodb.net/test?retryWrites=true&w=majority';
 
 import { Logger, Collection, Db, MongoClient, ObjectID } from 'mongodb';
@@ -86,6 +89,7 @@ export class MongoDbProvider {
     if (!this.database) {
       throw new Error('Database is undefined.');
     }
+    console.log('dd');
     return await this.database.createCollection(collectionName);
   }
 }

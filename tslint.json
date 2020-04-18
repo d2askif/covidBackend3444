@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "quotemark": [true, "single"],
+    "import-name": [true, { "graphql-tag": "gql", "jsonwebtoken": "jwt" }]
+  },
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-config-airbnb"
+  ]
+}
