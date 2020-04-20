@@ -9,9 +9,12 @@ export const userTypeDef = gql`
     verified: Boolean
     role: String
   }
-
+  type ValidationError {
+    field: String
+    error: [String]
+  }
   type Error {
-    message: String
+    result: [ValidationError]
   }
 
   type Login {
@@ -38,8 +41,12 @@ export const userTypeDef = gql`
     firstName: String
     lastName: String
   }
+
+  union LoginType = Login | Error
+
   type Mutation {
-    signin(input: SigninInput): Login
+    signin(input: SigninInput): LoginType
     signup(input: SignupInput): String
+    confirmUser(token: String): Boolean
   }
 `;

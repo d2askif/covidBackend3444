@@ -2,11 +2,22 @@ import User, { IUserDocument } from '../../db/Models/User';
 import { SignInInput, SingUpInput } from '../types';
 import { signInAction } from '../actions/singInAction';
 import { singUpAction } from '../actions/singUpAction';
+import redis from '../../util/redis';
+import { ObjectId } from 'mongodb';
 
 interface Input<T> {
-  input: T;
+  [key: string]: T;
 }
 export const userResolver = {
+  LoginType: {
+    __resolveType(obj: any) {
+      if (obj.result) {
+        return 'Error';
+      }
+
+      return 'Login';
+    },
+  },
   Query: {
     me: async () => {
       return '';
@@ -28,6 +39,23 @@ export const userResolver = {
       info: any
     ) => {
       return await singUpAction(input);
+    },
+
+    confirmUser: async (
+      parent: any,
+      { token }: Input<string>,
+      ctx: any,
+      info: any
+    ) => {
+      const userId = await redis.get(token);
+      console.log({ userId });
+
+      if (!userId) {
+        return false;
+      }
+      await User.update({ _id: new ObjectId(userId) }, { verified: true });
+      redis.del(token);
+      return true;
     },
   },
   User: {

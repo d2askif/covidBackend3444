@@ -9,6 +9,8 @@ interface Environment {
   };
   secret: string;
   port: number | string;
+  emailSenderUserName: string;
+  emailSenderPassword: string;
 }
 
 export const environment: Environment = {
@@ -19,4 +21,6 @@ export const environment: Environment = {
   },
   secret: process.env.SECRET || defaultSecret,
   port: process.env.PORT || defaultPort,
+  emailSenderUserName: process.env.EMAIL_SENDER_USER || '',
+  emailSenderPassword: process.env.EMAIL_SENDER_PASSWORD || '',
 };

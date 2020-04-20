@@ -1,7 +1,16 @@
 {
   "rules": {
+    "trailing-comma": true,
     "quotemark": [true, "single"],
-    "import-name": [true, { "graphql-tag": "gql", "jsonwebtoken": "jwt" }]
+    "import-name": [
+      true,
+      {
+        "graphql-tag": "gql",
+        "jsonwebtoken": "jwt",
+        "ioredis": "redis",
+        "validate": "validate"
+      }
+    ]
   },
   "extends": [
     "tslint:recommended",

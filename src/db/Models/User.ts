@@ -5,17 +5,27 @@ export interface IUserDocument extends Document {
   email: string;
   firstName: string;
   lastName: string;
+  verified: boolean;
+  active: boolean;
   comparePassword(pass: string): Promise<boolean>;
 }
 
 export interface IUserModel extends Model<IUserDocument> {}
 
-const userSchema: Schema = new Schema({
-  email: { type: String, required: true, unique: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  password: { type: String, required: true },
-});
+const userSchema: Schema = new Schema(
+  {
+    email: { type: String, required: true, unique: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    password: { type: String, required: true },
+    role: { type: String, default: 'USER' },
+    active: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.pre('save', function (next) {
   var user = this;
@@ -43,7 +53,7 @@ userSchema.method('comparePassword', function (
   return new Promise((resolve, rejects) => {
     //@ts-ignore
 
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
       if (err) return rejects(err);
       resolve(isMatch);
     });
