@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
+import { response } from 'express';
 
 export interface IUserDocument extends Document {
   email: string;
@@ -8,6 +9,7 @@ export interface IUserDocument extends Document {
   verified: boolean;
   active: boolean;
   comparePassword(pass: string): Promise<boolean>;
+  updatePassword(newPassword: string): Promise<boolean>;
 }
 
 export interface IUserModel extends Model<IUserDocument> {}
@@ -44,6 +46,13 @@ userSchema.pre('save', function (next) {
       next();
     });
   });
+});
+
+userSchema.method('updatePassword', function (newPassword: string) {
+  console.log('updatePassword');
+  //@ts-ignore
+
+  this.password = newPassword;
 });
 
 userSchema.method('comparePassword', function (

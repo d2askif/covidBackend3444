@@ -42,11 +42,18 @@ export const userTypeDef = gql`
     lastName: String
   }
 
+  input PasswordResetInput {
+    token: String
+    newPassword: String
+  }
+
   union LoginType = Login | Error
 
   type Mutation {
     signin(input: SigninInput): LoginType
     signup(input: SignupInput): String
     confirmUser(token: String): Boolean
+    sendResetPassword(email: String): Boolean
+    resetPassword(input: PasswordResetInput): Boolean
   }
 `;

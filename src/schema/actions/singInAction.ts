@@ -5,7 +5,7 @@ import { environment } from '../../util/environment';
 import { SignInInput } from '../types';
 import credential from '../../validators/credentials';
 export const signInAction = async (input: SignInInput) => {
-  const valid = credential({ username: '', password: 'pass' });
+  const valid = credential({ username: input.email, password: input.password });
   if (valid) {
     return valid;
   }
