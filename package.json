@@ -46,7 +46,7 @@
     "@types/node": "^13.9.8",
     "@types/webpack-env": "^1.15.0",
     "apollo-link-http": "^1.5.16",
-    "apollo-server": "^2.9.16",
+    "apollo-server": "^2.25.3",
     "bcrypt": "^4.0.1",
     "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
